@@ -28,7 +28,7 @@ subject to Time {i in machines, j in months}:
 	sum{k in products} time_production[i,k]*quantity[j,k] <= 24*16*disponibility_machine[j,i];
 	
 subject to Stock {i in months, j in products}:
-	stock[i,j] <= 100;  # faut gerer stock en janvier et en juin #
+	stock[i,j] <= 100;  
 	
 subject to Stock_June {i in products}:
 	stock["June", i] = 50;

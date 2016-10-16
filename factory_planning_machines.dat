@@ -1,0 +1,24 @@
+data;
+set machines := grinder vertical_drill horizontal_drill borer planer;
+set months := January February March April May June;
+set products := prod1 prod2 prod3 prod4 prod5 prod6 prod7;
+
+param profit := prod1 10 prod2 6 prod3 8 prod4 4 prod5 11 prod6 9 prod7 3;
+param num_mach := grinder 4 vertical_drill 2 horizontal_drill 3 borer 1 planer 1;
+param num_maint := grinder 2 vertical_drill 1 horizontal_drill 1 borer 1 planer 1;
+				
+param selling_limit : prod1 prod2 prod3 prod4 prod5 prod6 prod7 :=
+		January		   500	1000   300	 300   800	 200  1000
+		February	   600  500    200    0    400   300  150
+		March          300  600     0     0    500   400  100
+		April          200  300    400   500   200    0   100
+		May             0   100    500   100   1000  300   0 
+		June           500  500    100   300   1100  500  60;
+
+param time_production : prod1 prod2 prod3 prod4 prod5 prod6 prod7 :=
+	grinder				0.5    0.7   0      0    0.3   0.2   0.5
+	vertical_drill		0.1	   0.2   0     0.3    0    0.6    0	
+	horizontal_drill	0.2     0    0.8    0     0     0    0.6
+	borer               0.05   0.03  0     0.07   1     0    0.08
+	planer		         0      0    0.01   0    0.05   0    0.05;
+end;
