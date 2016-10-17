@@ -14,7 +14,7 @@ param disponibility_machine : grinder vertical_drill horizontal_drill borer plan
 				June            4        	2			2				1		1;
 				
 param selling_limit : prod1 prod2 prod3 prod4 prod5 prod6 prod7 :=
-		January		   500	1000   300	 300   800	 200  1000
+		January		   500	1000   300	 300   800	 200  100
 		February	   600  500    200    0    400   300  150
 		March          300  600     0     0    500   400  100
 		April          200  300    400   500   200    0   100
@@ -25,6 +25,6 @@ param time_production : prod1 prod2 prod3 prod4 prod5 prod6 prod7 :=
 	grinder				0.5    0.7   0      0    0.3   0.2   0.5
 	vertical_drill		0.1	   0.2   0     0.3    0    0.6    0	
 	horizontal_drill	0.2     0    0.8    0     0     0    0.6
-	borer               0.05   0.03  0     0.07   1     0    0.08
+	borer               0.05   0.03  0     0.07   0.1     0    0.08
 	planer		         0      0    0.01   0    0.05   0    0.05;
 end;
