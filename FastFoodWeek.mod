@@ -2,6 +2,7 @@
 set allProducts;
 set nutriments;
 
+#We create the six groups of product to impose diversity in the menus
 set drinks;
 set burgers;
 set fries;
@@ -14,13 +15,13 @@ param valNutr{allProducts, nutriments} >=0;
 param prix{allProducts} >=0;
 param lowerBound{nutriments} >=0;
 param upperBound{nutriments} >=0;
-param nb_group >=0;
+param nb_group >=0; #Number of groups
 param max_qtt_day{1..nb_group} >=0; #Max quantity for each day and each group
 param min_qtt_week{1..nb_group} >=0; #Min quantity for each week and each group
 
 
 ### VARIABLE ###
-var quantity{allProducts, 1..7} >=0 integer; 
+var quantity{allProducts, 1..7} >=0 integer; #Now, we have one quantity per product and per day of the week
 
 ### OBJECTIVE ###
 minimize Total_price : sum{k in 1..7, i in allProducts} quantity[i, k]*prix[i];
@@ -36,7 +37,6 @@ subject to Max_qtt3 {k in 1..7} : sum{j in fries} quantity[j, k]<=max_qtt_day[3]
 subject to Max_qtt4 {k in 1..7} : sum{j in chicken} quantity[j, k]<=max_qtt_day[4]; 
 subject to Max_qtt5 {k in 1..7} : sum{j in salads} quantity[j, k]<=max_qtt_day[5]; 
 subject to Max_qtt6 {k in 1..7} : sum{j in misc} quantity[j, k]<=max_qtt_day[6]; 
-
 
 #Min quantity of products in each group per week
 subject to Min_qtt1 : sum{j in drinks, k in 1..7} quantity[j, k]>=min_qtt_week[1]; 

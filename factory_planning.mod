@@ -1,6 +1,6 @@
 ### SETS ###
 set machines;
-set months ordered;
+set months ordered; #We create an ordered set to later use function prev()to access previous elements 
 set products;
 
 ### PARAMETERS ###
@@ -14,10 +14,12 @@ var quantity{months, products}>=0 integer; #Quantity of products j manufactured 
 var stock{months, products}>=0 integer; #Quantity of products j stored at month i for month i+1
 
 ### OBJECTIVE ###
+#We use the functions first() and last() to stay more general
 maximize Total_profit : sum{i in months, j in products:i<>first(months)} (profit[j]*(quantity[i,j]-stock[i,j]+stock[prev(i,months,1),j]) - 0.5*stock[i,j])
 	+ sum{j in products} (profit[j]*(quantity[first(months),j]-stock[first(months),j]) - 0.5*stock[first(months),j]);
 	#+ sum{j in products} 0.5*stock[last(months), j];
 
+#Constraints to respect the selling limits : we impose a different constraint for the first month as it has no precious month
 subject to Selling {i in months, j in products:i<>first(months)} :
 	quantity[i,j] - stock[i,j] + stock[prev(i,months,1),j] <= selling_limit[i,j];
 
@@ -29,6 +31,7 @@ subject to Time {i in machines, j in months}:
 	
 subject to Stock {i in months, j in products}:
 	stock[i,j] <= 100;
-	
+
+#We impose the stock to be 50 by the end of june	
 subject to Stock_June {i in products}:
 	stock[last(months), i] = 50;

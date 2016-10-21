@@ -1,5 +1,5 @@
 ### SETS ###
-set allProducts;
+set allProducts; 
 set nutriments;
 
 ### PARAMETERS ###
@@ -10,7 +10,7 @@ param upperBound{nutriments} >=0;
 
 
 ### VARIABLE ###
-var quantity{allProducts} >=0 integer; 
+var quantity{allProducts} >=0 integer; #Represents the quantity of each product that we select
 
 ### OBJECTIVE ###
 minimize Total_price : sum{i in allProducts} quantity[i]*prix[i];

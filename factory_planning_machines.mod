@@ -34,6 +34,11 @@ subject to Stock {i in months, j in products}:
 	
 subject to Stock_June {i in products}:
 	stock[last(months), i] = 50;
-	
+
+#There is a fixed number of machines of each type that has to undergo maintenance	
 subject to Maintenance {j in machines} : 
 	sum{i in months} maintenance[i,j] = num_maint[j];
+
+#We impose a minimum production each month to avoid months with no production
+subject to Min_Production {i in months} : 
+	sum{j in products} quantity[i,j] >= 1000;

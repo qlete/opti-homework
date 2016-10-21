@@ -2,6 +2,7 @@
 set allProducts;
 set nutriments;
 
+#We create the six groups of product to impose diversity in the menus
 set drinks;
 set burgers;
 set fries;
@@ -19,7 +20,7 @@ param max_qtt_day{1..nb_group} >=0; #Max quantity for each day and each group
 
 
 ### VARIABLE ###
-var quantity{allProducts} >=0 integer; 
+var quantity{allProducts} >=0 integer; #Represents the quantity of each product that we select
 
 ### OBJECTIVE ###
 minimize Total_price : sum{i in allProducts} quantity[i]*prix[i];
@@ -29,6 +30,7 @@ minimize Total_price : sum{i in allProducts} quantity[i]*prix[i];
 subject to Bounds {i in nutriments} : lowerBound[i] <= sum{j in allProducts} valNutr[j,i]*quantity[j] <= upperBound[i];
 
 #Max quantity of products in each group per day
+#Here we have to write one constraint per set as AMPL doesn't allow set of set
 subject to Max_qtt1 : sum{j in drinks} quantity[j]<=max_qtt_day[1]; 
 subject to Max_qtt2 : sum{j in burgers} quantity[j]<=max_qtt_day[2]; 
 subject to Max_qtt3 : sum{j in fries} quantity[j]<=max_qtt_day[3]; 
