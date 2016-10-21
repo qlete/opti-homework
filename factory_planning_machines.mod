@@ -17,8 +17,8 @@ var maintenance{months, machines}>=0 integer; #Number of machine of type j down 
 
 ### OBJECTIVE ###
 maximize Total_profit : sum{i in months, j in products:i<>first(months)} (profit[j]*(quantity[i,j]-stock[i,j]+stock[prev(i,months,1),j]) - 0.5*stock[i,j])
-	+ sum{j in products} (profit[j]*(quantity[first(months),j]-stock[first(months),j]) - 0.5*stock[first(months),j])
-	+ sum{j in products} 0.5*stock[last(months), j];
+	+ sum{j in products} (profit[j]*(quantity[first(months),j]-stock[first(months),j]) - 0.5*stock[first(months),j]);
+#	+ sum{j in products} 0.5*stock[last(months), j];
 
 subject to Selling {i in months, j in products:i<>first(months)} :
 	quantity[i,j] - stock[i,j] + stock[prev(i,months,1),j] <= selling_limit[i,j];
