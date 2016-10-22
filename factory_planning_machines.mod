@@ -4,9 +4,9 @@ set months ordered;
 set products;
 
 ### PARAMETERS ###
-param profit{products} >=0;
-param time_production{machines,products} >=0;
-param selling_limit{months,products} >=0;
+param profit{products} >=0; #profit contribution of the different products
+param time_production{machines,products} >=0; #entry ij of the matrix is the time product j needs on machine i
+param selling_limit{months,products} >=0;  #entry ij of the matrix is the selling limit of product j in month i
 param num_mach{machines} >=0; #Number of machines of each type
 param num_maint{machines}; #Number of machines of each type that has to undergo maintenance
 
@@ -15,7 +15,7 @@ var quantity{months, products}>=0 integer; #Quantity of products j manufactured 
 var stock{months, products}>=0 integer; #Quantity of products j stored at month i for month i+1
 var maintenance{months, machines}>=0 integer; #Number of machine of type j down during month i
 
-### OBJECTIVE ###
+### OBJECTIVE ### 
 maximize Total_profit : sum{i in months, j in products:i<>first(months)} (profit[j]*(quantity[i,j]-stock[i,j]+stock[prev(i,months,1),j]) - 0.5*stock[i,j])
 	+ sum{j in products} (profit[j]*(quantity[first(months),j]-stock[first(months),j]) - 0.5*stock[first(months),j]);
 #	+ sum{j in products} 0.5*stock[last(months), j];
@@ -39,6 +39,7 @@ subject to Stock_June {i in products}:
 subject to Maintenance {j in machines} : 
 	sum{i in months} maintenance[i,j] = num_maint[j];
 
-#We impose a minimum production each month to avoid months with no production
+#We impose a minimum production each month to avoid months with no production. 
+#This is optional. It just allows us to have a more realistic optimal solution.
 subject to Min_Production {i in months} : 
 	sum{j in products} quantity[i,j] >= 1000;

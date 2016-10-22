@@ -4,10 +4,10 @@ set months ordered; #We create an ordered set to later use function prev()to acc
 set products;
 
 ### PARAMETERS ###
-param profit{products} >=0;
-param time_production{machines,products} >=0;
-param selling_limit{months,products} >=0;
-param disponibility_machine{months,machines} >=0;
+param profit{products} >=0; #profit contribution of the different products
+param time_production{machines,products} >=0; #entry ij of the matrix is the time product j needs on machine i
+param selling_limit{months,products} >=0; #entry ij of the matrix is the selling limit of product j in month i
+param disponibility_machine{months,machines} >=0; #entry ij is the number of machines j disposable durng month i 
 
 ### VARIABLES ###
 var quantity{months, products}>=0 integer; #Quantity of products j manufactured at month i 
@@ -19,7 +19,7 @@ maximize Total_profit : sum{i in months, j in products:i<>first(months)} (profit
 	+ sum{j in products} (profit[j]*(quantity[first(months),j]-stock[first(months),j]) - 0.5*stock[first(months),j]);
 	#+ sum{j in products} 0.5*stock[last(months), j];
 
-#Constraints to respect the selling limits : we impose a different constraint for the first month as it has no precious month
+#Constraints to respect the selling limits : we impose a different constraint for the first month as it has no previous month
 subject to Selling {i in months, j in products:i<>first(months)} :
 	quantity[i,j] - stock[i,j] + stock[prev(i,months,1),j] <= selling_limit[i,j];
 

@@ -3,10 +3,10 @@ set allProducts;
 set nutriments;
 
 ### PARAMETERS ###
-param valNutr{allProducts, nutriments} >=0;
-param prix{allProducts} >=0;
-param lowerBound{nutriments} >=0;
-param upperBound{nutriments} >=0;
+param valNutr{allProducts, nutriments} >=0; #entry ij is the number of nutriment j in product i
+param prix{allProducts} >=0; #price of the products
+param lowerBound{nutriments} >=0; #lowerbound on every nutriment
+param upperBound{nutriments} >=0; #upperbound on every nutriment
 
 
 ### VARIABLE ###
